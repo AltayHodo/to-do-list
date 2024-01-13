@@ -46,7 +46,17 @@ const DOMHandler = (function(){
     taskContainer.innerHTML = '';
     tasks.forEach((task, index) => {
       const taskItem = document.createElement('div');
+      taskItem.classList.add('task-item');
       taskItem.textContent = `${task.title}`;
+
+      const removeBtn = document.createElement('button');
+      removeBtn.textContent = `✕`;
+      removeBtn.addEventListener('click', () => {
+        ToDoList.removeTask(index);
+        renderTasks(ToDoList.getTasks());
+      })
+
+      taskItem.appendChild(removeBtn);
       taskContainer.appendChild(taskItem);
     });
   }
