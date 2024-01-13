@@ -49,14 +49,29 @@ const DOMHandler = (function(){
       taskItem.classList.add('task-item');
       taskItem.textContent = `${task.title}`;
 
+      const checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+      checkbox.checked = task.getCompleted();
+      checkbox.addEventListener('change', () => {
+        ToDoList.toggleTaskCompleted(index);
+        renderTasks(ToDoList.getTasks());
+      });
+
+      if(task.getCompleted()){
+        taskItem.classList.add('completed-task');
+      }
+      taskItem.appendChild(checkbox);
+
+
       const removeBtn = document.createElement('button');
       removeBtn.textContent = `✕`;
       removeBtn.addEventListener('click', () => {
         ToDoList.removeTask(index);
         renderTasks(ToDoList.getTasks());
       })
-
       taskItem.appendChild(removeBtn);
+
+      
       taskContainer.appendChild(taskItem);
     });
   }
